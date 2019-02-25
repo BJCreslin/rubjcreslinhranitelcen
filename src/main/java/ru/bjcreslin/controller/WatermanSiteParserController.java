@@ -8,15 +8,15 @@ import java.io.IOException;
 import java.util.List;
 
 public class WatermanSiteParserController {
-    private static final String HTTP_ВОДЯНОЙ_РФ_SEARCH_RESULT_Q = "http://xn--b1aeppdc1j.xn--p1ai/search/result?q=";
+    private static final String HTTP_WATERMAN_SEARCH_RESULT_Q = "http://xn--b1aeppdc1j.xn--p1ai/search/result?q=";
 
-    public static void getListWithPrice(List<ItemModel> itemModelList) {
+    public static void addPriceNameInList(List<ItemModel> itemModelList) {
 
         itemModelList.stream().forEach(
                 p -> {
                     Document html = null;
                     try {
-                        html = Jsoup.connect(HTTP_ВОДЯНОЙ_РФ_SEARCH_RESULT_Q +
+                        html = Jsoup.connect(HTTP_WATERMAN_SEARCH_RESULT_Q +
                                 p.getCode().toString()).get();
                     } catch (IOException e) {
                     }

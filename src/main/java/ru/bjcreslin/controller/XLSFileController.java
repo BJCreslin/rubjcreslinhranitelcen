@@ -7,6 +7,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import ru.bjcreslin.entity.ItemEntity;
+import ru.bjcreslin.model.ItemModel;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,13 +16,13 @@ import java.util.List;
 
 public class XLSFileController implements AppController {
     @Override
-    public List<ItemEntity> getList() throws IOException {
+    public List<ItemModel> getList() throws IOException {
         final String adressFile = "C:\\D\\xlsforsite\\Книга1.xls";
 
         HSSFWorkbook workbook = new HSSFWorkbook(new POIFSFileSystem(new File(adressFile)));
         HSSFSheet sheet = workbook.getSheetAt(0);
 
-        List<ItemEntity> entityArrayList = new ArrayList<>();
+        List<ItemModel> itemModelArrayList = new ArrayList<>();
 
         int controlCount = 0; //для счёта строчек и контроля "небесконечности"
         while (true) {
@@ -51,18 +52,18 @@ public class XLSFileController implements AppController {
             Long code = getLongFromCell(row.getCell(4));
             String groupe = fmtCode.formatCellValue(row.getCell(5));
 
-            ItemEntity itemEntity = new ItemEntity();
-            itemEntity.setName(name);
-            itemEntity.setAdress(adress);
-            itemEntity.setPrice(price);
-            itemEntity.setDiscountPrice(discountPrice);
-            itemEntity.setCode(code);
-            itemEntity.setGroupe(groupe);
+            ItemModel itemModel = new ItemModel();
+            itemModel.setName(name);
+            itemModel.setAdress(adress);
+            itemModel.setPrice(price);
+            itemModel.setDiscountPrice(discountPrice);
+            itemModel.setCode(code/100);
+            itemModel.setGroupe(groupe);
 
-            entityArrayList.add(itemEntity);
+            itemModelArrayList.add(itemModel);
         }
 
-        return entityArrayList;
+        return itemModelArrayList;
     }
 
     long getLongFromCell(HSSFCell hssfCell) {

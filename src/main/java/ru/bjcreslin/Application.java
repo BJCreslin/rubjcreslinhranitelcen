@@ -2,8 +2,9 @@ package ru.bjcreslin;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import ru.bjcreslin.controller.AppController;
+import ru.bjcreslin.controller.WatermanSiteParserController;
 import ru.bjcreslin.controller.XLSFileController;
-import ru.bjcreslin.entity.ItemEntity;
+import ru.bjcreslin.model.ItemModel;
 import ru.bjcreslin.view.AppView;
 import ru.bjcreslin.view.ConsoleViewver;
 
@@ -19,9 +20,13 @@ public class Application {
 
         AppController controller = new XLSFileController();
         AppView view = new ConsoleViewver();
-        List<ItemEntity> itemEntityArrayList = controller.getList();
+        List<ItemModel> itemEntityArrayList = controller.getList();
 
         view.show(itemEntityArrayList);
+
+        WatermanSiteParserController watermanSiteParserController =
+                new WatermanSiteParserController();
+        watermanSiteParserController.addPriceNameInList(itemEntityArrayList);
 
 
     }
