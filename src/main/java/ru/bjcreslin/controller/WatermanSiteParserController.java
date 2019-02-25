@@ -20,14 +20,23 @@ public class WatermanSiteParserController {
                                 p.getCode().toString()).get();
                     } catch (IOException e) {
                     }
-                    if (html.hasClass("hl--light"))
-                        //добавляем название по коду
-                        p.setWaterName(html.getElementsByClass("hl--light").first().text());
 
-                        //добавляем цену по коду
-                    p.setWaterPrice(Long.parseLong(html.getElementsByClass("product-wrap").
-                            first().text().replace(" ", "").
-                            replace("\u20BDДобавитьвкорзину", "")));
+                    //добавляем название по коду
+                    try {
+                        p.setWaterName(html.getElementsByClass("hl--light").text());
+                    } catch (NullPointerException npe) {
+
+                    }
+
+                    //добавляем цену по коду
+
+                    try {
+                        p.setWaterPrice(Long.parseLong(html.getElementsByClass("product-wrap").
+                                first().text().replace(" ", "").
+                                replace("\u20BDДобавитьвкорзину", "")));
+                    } catch (NullPointerException npe) {
+
+                    }
                 });
 
     }
