@@ -19,6 +19,7 @@ public class WatermanSiteParserController {
                         html = Jsoup.connect(HTTP_WATERMAN_SEARCH_RESULT_Q +
                                 p.getCode().toString()).get();
                     } catch (IOException e) {
+
                     }
 
                     //добавляем название по коду
