@@ -1,5 +1,6 @@
 package ru.bjcreslin;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import ru.bjcreslin.controller.AppController;
 import ru.bjcreslin.controller.WatermanSiteParserController;
@@ -16,19 +17,19 @@ public class Application {
 
 
     public static void main(String[] args) throws IOException {
-        // SpringApplication.run(Application.class);
+         SpringApplication.run(Application.class);
 
-        AppController controller = new XLSFileController();
-        AppView view = new ConsoleViewver();
-        List<ItemModel> itemEntityArrayList = controller.getList();
-
-        view.show(itemEntityArrayList);
-
-        WatermanSiteParserController watermanSiteParserController =
-                new WatermanSiteParserController();
-        watermanSiteParserController.addPriceNameInList(itemEntityArrayList);
-
-
+//        AppController controller = new XLSFileController();
+//        AppView view = new ConsoleViewver();
+//        List<ItemModel> itemEntityArrayList = controller.getList();
+//
+//
+//
+//        WatermanSiteParserController watermanSiteParserController =
+//                new WatermanSiteParserController();
+//        watermanSiteParserController.addPriceNameInList(itemEntityArrayList);
+//
+//        view.show(itemEntityArrayList);
     }
 
 }
