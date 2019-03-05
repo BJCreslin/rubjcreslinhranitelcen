@@ -7,11 +7,11 @@
 <body>
 
 <div>
-    <form method="POST" enctype="multipart/form-data" action="/">
-        <table>
-            <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
-            <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
-        </table>
+    <h1>Spring Boot file upload example</h1>
+
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        <input type="file" name="file" /><br/><br/>
+        <input type="submit" value="Submit" />
     </form>
 </div>
 
