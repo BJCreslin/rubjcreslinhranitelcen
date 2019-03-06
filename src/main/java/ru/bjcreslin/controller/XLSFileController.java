@@ -17,7 +17,7 @@ public class XLSFileController {
 
     public static List<ItemModel> getList(File file) throws IOException {
         //  final String adressFile = "C:\\D\\xlsforsite\\Книга1.xls";
-        System.out.println(file.getName() + "    " + file.length());
+      //  System.out.println(file.getName() + "    " + file.length());
         HSSFWorkbook workbook = new HSSFWorkbook(new POIFSFileSystem(file));
         HSSFSheet sheet = workbook.getSheetAt(0);
 
