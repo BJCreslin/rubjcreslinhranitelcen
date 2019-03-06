@@ -4,9 +4,18 @@
 
 <h1>Spring Boot - Upload Status</h1>
 
-<div th:if="${message}">
-    <h2 th:text="${message}"/>
-</div>
+<table>
+    <tr>
+        <th>NAME</th>
+        <th>PRICE</th>
+        <th>IN STOCK</th>
+    </tr>
+    <tr th:each="prod : ${prods}">
+        <td th:text="${prod.getName()}"></td>
+        <td th:text="${prod.getAdress()}"></td>
+        <td th:text="${prod.getDiscountPrice()}"></td>
+    </tr>
+</table>
 
 </body>
 </html>

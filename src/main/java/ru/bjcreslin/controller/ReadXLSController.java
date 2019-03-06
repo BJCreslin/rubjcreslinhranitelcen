@@ -5,27 +5,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ru.bjcreslin.model.ItemModel;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.List;
 
 @Controller
 public class ReadXLSController {
     //todo сделать загрузку файла через нет
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
-    public
-    String provideUploadInfo() {
+    public String provideUploadInfo() {
         return "uploadForm";
     }
 
     @PostMapping("/upload") // //new annotation since 4.3
     public String singleFileUpload(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes) {
+                                   RedirectAttributes redirectAttributes, Model model) {
 
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
@@ -33,25 +29,37 @@ public class ReadXLSController {
         }
 
         try {
+            System.out.println("Size:" + file.getSize());
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            List<ItemModel> itemModels = XLSFileController.getList(multipartToFile(file));
 
-            // Get the file and save it somewhere
-            byte[] bytes = file.getBytes();
-//            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-//            Files.write(path, bytes);
 
-            redirectAttributes.addFlashAttribute("message",
-                    "You successfully uploaded '" + file.getOriginalFilename() + "'");
+            redirectAttributes.addFlashAttribute("prods", itemModels);
+
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return "redirect:/uploadStatus";
+        return "uploadStatus";
     }
 
-    @GetMapping("/uploadStatus")
-    public String uploadStatus() {
-        return "uploadStatus";
+
+    /**
+     * @param multipart
+     * @return File
+     * @throws IllegalStateException
+     * @throws IOException           преобразует MultipartFile to File
+     */
+    private static File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException {
+        File tmpFile = new File(System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") +
+                multipart.getOriginalFilename());
+        multipart.transferTo(tmpFile);
+        return tmpFile;
     }
 
 
