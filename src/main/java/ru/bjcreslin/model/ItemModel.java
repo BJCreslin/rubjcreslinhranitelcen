@@ -24,4 +24,12 @@ public class ItemModel {
     private String groupe;
 
     private Date date;
+
+    public Long getPriceInRub() {
+        return price/100;
+    }
+
+    public Long getDiscountPriceInRub() {
+        return discountPrice/100;
+    }
 }

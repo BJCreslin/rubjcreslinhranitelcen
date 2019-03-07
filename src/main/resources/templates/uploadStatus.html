@@ -3,18 +3,32 @@
 <body>
 
 <h1>Spring Boot - Upload Status</h1>
-<div th:insert="menu :: copy"></div>
+<div th:insert="~{footer :: menu}"></div>
 
 <table>
+
     <tr>
-        <th>NAME</th>
+        <th>StroyparkNAME</th>
+        <th>WaterName</th>
+        <th>price</th>
+        <th>discountprice</th>
+        <th>Waterprice</th>
+        <th>WaterCode</th>
+        <th>Groupe</th>
         <th>Adress</th>
-        <th>price with discont</th>
+
     </tr>
     <tr th:each="prod : ${prods}">
         <td th:text="${prod.getName()}"></td>
+        <td th:text="${prod.getWaterName()}"></td>
+        <td th:text="${prod.getPriceInRub()}"></td>
+        <td th:text="${prod.getDiscountPriceInRub()}"></td>
+        <td th:text="${prod.getWaterPrice()}"></td>
+        <td th:text="${prod.getCode()}"></td>
+        <td th:text="${prod.getGroupe()}"></td>
         <td th:text="${prod.getAdress()}"></td>
-        <td th:text="${prod.getDiscountPrice()}"></td>
+
+
     </tr>
 </table>
 

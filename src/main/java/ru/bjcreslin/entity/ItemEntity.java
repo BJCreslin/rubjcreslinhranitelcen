@@ -22,6 +22,10 @@ public class ItemEntity extends IdEntity {
 
     private Long code;
 
+    private Long waterPrice;
+
+    private String waterName;
+
     private String groupe;
 
     private Date date;

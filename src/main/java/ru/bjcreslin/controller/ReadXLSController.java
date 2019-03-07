@@ -25,6 +25,7 @@ public class ReadXLSController {
         try {
 
             List<ItemModel> itemModels = XLSFileController.getList(multipartToFile(file));
+            WatermanSiteParserController.addPriceNameInList(itemModels);
 
 
             model.addAttribute("prods", itemModels);
@@ -50,7 +51,6 @@ public class ReadXLSController {
         file.deleteOnExit();
         return file;
     }
-
 
 
 }
