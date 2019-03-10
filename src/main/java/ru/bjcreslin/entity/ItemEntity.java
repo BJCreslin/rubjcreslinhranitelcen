@@ -4,16 +4,19 @@ package ru.bjcreslin.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "itemsfromadress")
-public class ItemEntity extends IdEntity {
+public class ItemEntity /*extends IdEntity */{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id",nullable = false,unique = true)
+    private Long id;
+
 
     @Column(name = "name")
     private String name;

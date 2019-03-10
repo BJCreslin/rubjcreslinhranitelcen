@@ -44,13 +44,14 @@ public class ItemServiceImpl implements ItemService {
             itemEntityinBase.setPrice(itemModel.getPrice());
         }
 
-
+itemRepository.save(itemEntityinBase);
     }
 
     public void saveAllStroyPark(List<ItemModel> itemModelList) {
         if (!itemModelList.isEmpty()) {
             itemModelList.forEach(this::saveStroypark);
         }
+        System.out.println(itemModelList.size()+" добавленно в базу");
     }
 
 
