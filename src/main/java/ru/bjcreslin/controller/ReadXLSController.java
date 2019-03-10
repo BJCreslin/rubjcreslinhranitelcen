@@ -1,5 +1,6 @@
 package ru.bjcreslin.controller;
 
+import lombok.Data;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +12,16 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
+@Data
 public class ReadXLSController {
-    //todo сделать загрузку файла через нет
+
+
+    private static List<ItemModel> itemModels;
+
+    public static List<ItemModel> getItemModels() {
+        return itemModels;
+    }
+
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
     public String provideUploadInfo() {
         return "uploadForm";
@@ -20,21 +29,13 @@ public class ReadXLSController {
 
     @PostMapping("/upload") // //new annotation since 4.3
     public String singleFileUpload(@RequestParam("file") MultipartFile file, Model model) {
-
-
         try {
-
-            List<ItemModel> itemModels = XLSFileController.getList(multipartToFile(file));
-            WatermanSiteParserController.addPriceNameInList(itemModels);
-
-
+            this.itemModels = XLSFileController.getList(multipartToFile(file));
+            WatermanSiteParserController.addPriceNameInList(this.itemModels);
             model.addAttribute("prods", itemModels);
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return "uploadStatus";
     }
 

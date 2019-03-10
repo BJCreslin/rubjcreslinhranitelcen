@@ -47,6 +47,12 @@ public class ItemServiceImpl implements ItemService {
 
     }
 
+    public void saveAllStroyPark(List<ItemModel> itemModelList) {
+        if (!itemModelList.isEmpty()) {
+            itemModelList.forEach(this::saveStroypark);
+        }
+    }
+
 
     @Override
     public List<ItemEntity> findAll() {
