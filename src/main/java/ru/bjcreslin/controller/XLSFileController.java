@@ -10,20 +10,34 @@ import ru.bjcreslin.model.ItemModel;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static java.math.BigDecimal.ROUND_CEILING;
 
 public class XLSFileController {
 
+    /**
+     * Чтение данных из файла XLS
+     *
+     * @param file
+     * @return
+     * @throws IOException
+     */
+
     public static List<ItemModel> getList(File file) throws IOException {
-        //  final String adressFile = "C:\\D\\xlsforsite\\Книга1.xls";
-      //  System.out.println(file.getName() + "    " + file.length());
         HSSFWorkbook workbook = new HSSFWorkbook(new POIFSFileSystem(file));
         HSSFSheet sheet = workbook.getSheetAt(0);
 
         List<ItemModel> itemModelArrayList = new ArrayList<>();
 
-        int controlCount = 0; //для счёта строчек и контроля "небесконечности"
+        Map<String, Integer> mapColumnsNames = getColumnsNames(sheet);
+
+        int controlCount = 1; //для счёта строчек и контроля "небесконечности" в 0 строчке названия столбцов
         while (true) {
             // контроль "небесконечности" цикла
             if (controlCount > 1000) {
@@ -63,6 +77,27 @@ public class XLSFileController {
         }
 
         return itemModelArrayList;
+    }
+
+    /**
+     * @param sheet
+     * @return Мап с названием столбца и номером столбца в файле
+     */
+    private static Map<String, Integer> getColumnsNames(HSSFSheet sheet) {
+        Map<String, Integer> mapColumnsNames = new HashMap<>();
+        //todo сделать метод
+
+
+        return mapColumnsNames;
+
+    }
+
+
+    private static BigDecimal getBigDecimalFromCell(HSSFCell hssfCell) {
+        DataFormatter fmtCode = new DataFormatter();
+        return new BigDecimal(fmtCode.formatCellValue(hssfCell).
+                replace(",", ".").replace(" ", "")).setScale(2, RoundingMode.HALF_UP);
+
     }
 
     private static long getLongFromCell(HSSFCell hssfCell) {
