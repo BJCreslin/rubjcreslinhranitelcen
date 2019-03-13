@@ -9,3 +9,7 @@ out
 gen
 .idea/dataSources.local.xml
 .idea/workspace.xml
+/src/main/resources/application.properties
+src/main/java/ru/bjcreslin/willdelete/Solution.java
+src/test/
+target/

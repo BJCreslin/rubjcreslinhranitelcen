@@ -2,15 +2,8 @@ package ru.bjcreslin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import ru.bjcreslin.controller.AppController;
-import ru.bjcreslin.controller.WatermanSiteParserController;
-import ru.bjcreslin.controller.XLSFileController;
-import ru.bjcreslin.model.ItemModel;
-import ru.bjcreslin.view.AppView;
-import ru.bjcreslin.view.ConsoleViewver;
 
 import java.io.IOException;
-import java.util.List;
 
 @SpringBootApplication
 public class Application {
