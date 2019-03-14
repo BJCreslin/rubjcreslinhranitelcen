@@ -6,6 +6,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import ru.bjcreslin.controller.xls.XLSSellController;
 import ru.bjcreslin.model.ItemModel;
 
 import java.io.File;
@@ -32,10 +33,12 @@ public class XLSFileController {
     public static List<ItemModel> getList(File file) throws IOException {
         HSSFWorkbook workbook = new HSSFWorkbook(new POIFSFileSystem(file));
         HSSFSheet sheet = workbook.getSheetAt(0);
+        List<String> listColumnsNames=getColumnsNames(sheet);
+
 
         List<ItemModel> itemModelArrayList = new ArrayList<>();
 
-        Map<String, Integer> mapColumnsNames = getColumnsNames(sheet);
+
 
         int controlCount = 1; //для счёта строчек и контроля "небесконечности" в 0 строчке названия столбцов
         while (true) {
@@ -81,30 +84,29 @@ public class XLSFileController {
 
     /**
      * @param sheet
-     * @return Мап с названием столбца и номером столбца в файле
+     * @return List с названием столбцов
      */
-    private static Map<String, Integer> getColumnsNames(HSSFSheet sheet) {
-        Map<String, Integer> mapColumnsNames = new HashMap<>();
+    private static List<String> getColumnsNames(HSSFSheet sheet) {
+        List<String> listColumnsNames = new ArrayList<>();
         //todo сделать метод
 
-
-        return mapColumnsNames;
-
+        HSSFRow rowWithColumnsNames = sheet.getRow(0);
+        int i = 0;
+        while (true) {
+            String tempString = XLSSellController.getStringFromCell(rowWithColumnsNames.getCell(i++));
+            if (tempString.isEmpty()) {
+                break;
+            }
+            listColumnsNames.add(tempString);
+        }
+        return listColumnsNames;
     }
 
 
-    private static BigDecimal getBigDecimalFromCell(HSSFCell hssfCell) {
-        DataFormatter fmtCode = new DataFormatter();
-        return new BigDecimal(fmtCode.formatCellValue(hssfCell).
-                replace(",", ".").replace(" ", "")).setScale(2, RoundingMode.HALF_UP);
 
-    }
 
-    private static long getLongFromCell(HSSFCell hssfCell) {
-        DataFormatter fmtCode = new DataFormatter();
-        return (long) (100 * Double.parseDouble(fmtCode.formatCellValue(hssfCell).
-                replace(",", ".").replace(" ", "")));
-    }
+
+
 
 
 }
