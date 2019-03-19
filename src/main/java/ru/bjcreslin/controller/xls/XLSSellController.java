@@ -14,9 +14,12 @@ public class XLSSellController {
 
     public static BigDecimal getBigDecimalFromCell(HSSFCell hssfCell) {
         DataFormatter fmtCode = new DataFormatter();
-        return new BigDecimal(fmtCode.formatCellValue(hssfCell).
-                replace(",", ".").replace(" ", "")).setScale(2, RoundingMode.HALF_UP);
-
+        try {
+            return new BigDecimal(fmtCode.formatCellValue(hssfCell).
+                    replace(",", ".").replace(" ", "")).setScale(2, RoundingMode.HALF_UP);
+        } catch (Exception ex) {
+            return BigDecimal.ZERO;
+        }
     }
 
     public static long getLongFromCell(HSSFCell hssfCell) {
@@ -25,12 +28,16 @@ public class XLSSellController {
             return (long) (100 * Double.parseDouble(fmtCode.formatCellValue(hssfCell).
                     replace(",", ".").replace(" ", "")));
         } catch (Exception ex) {
-            return 0;
+            return 0L;
         }
     }
 
     public static String getStringFromCell(HSSFCell hssfCell) {
         DataFormatter fmtCode = new DataFormatter();
-        return fmtCode.formatCellValue(hssfCell);
+        try {
+            return fmtCode.formatCellValue(hssfCell);
+        } catch (Exception ex) {
+            return "";
+        }
     }
 }
