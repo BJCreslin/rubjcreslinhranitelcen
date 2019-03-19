@@ -5,6 +5,7 @@ import org.jsoup.nodes.Document;
 import ru.bjcreslin.model.ItemModel;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class WatermanSiteParserController {
@@ -32,7 +33,7 @@ public class WatermanSiteParserController {
                     //добавляем цену по коду
 
                     try {
-                        p.setWaterPrice(Long.parseLong(html.getElementsByClass("product-wrap").
+                        p.setWaterPrice(new BigDecimal(html.getElementsByClass("product-wrap").
                                 first().text().replace(" ", "").
                                 replace("\u20BDДобавитьвкорзину", "")));
                     } catch (NullPointerException npe) {

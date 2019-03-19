@@ -15,7 +15,10 @@ import static ru.bjcreslin.controller.xls.XLSSellController.*;
 @Data
 public class ColumnsNameDispatcherForXLSFileParsing {
 
-    private static Map<String, BiConsumer<ItemModel, HSSFCell>> stringFunctionMap;
+    private  Map<String, BiConsumer<ItemModel, HSSFCell>> stringFunctionMap;
+//    public  Map<String, BiConsumer<ItemModel, HSSFCell>> getStringFunctionMap() {
+//        return stringFunctionMap;
+//    }
 
     public ColumnsNameDispatcherForXLSFileParsing() {
         stringFunctionMap = new HashMap<>();
@@ -24,6 +27,7 @@ public class ColumnsNameDispatcherForXLSFileParsing {
         stringFunctionMap.put("коэффициент стройпарк", this::addCoefficientStroypark);
         stringFunctionMap.put("код Водяной", this::addCodeWaterman);
         stringFunctionMap.put("группа", this::addGroupe);
+        stringFunctionMap.put("", this::noneOperation);
 
 
     }
@@ -48,5 +52,5 @@ public class ColumnsNameDispatcherForXLSFileParsing {
         itemModel.setName(getStringFromCell(cell));
     }
 
-
+    public void noneOperation(ItemModel itemModel, HSSFCell cell){}
 }

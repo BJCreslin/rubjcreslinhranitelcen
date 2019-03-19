@@ -20,9 +20,13 @@ public class XLSSellController {
     }
 
     public static long getLongFromCell(HSSFCell hssfCell) {
-        DataFormatter fmtCode = new DataFormatter();
-        return (long) (100 * Double.parseDouble(fmtCode.formatCellValue(hssfCell).
-                replace(",", ".").replace(" ", "")));
+        try {
+            DataFormatter fmtCode = new DataFormatter();
+            return (long) (100 * Double.parseDouble(fmtCode.formatCellValue(hssfCell).
+                    replace(",", ".").replace(" ", "")));
+        } catch (Exception ex) {
+            return 0;
+        }
     }
 
     public static String getStringFromCell(HSSFCell hssfCell) {

@@ -14,13 +14,13 @@ public class ItemModel {
 
     private BigDecimal coeff;
 
-    private Long price;
+    private BigDecimal price;
 
-    private Long discountPrice;
+    private BigDecimal discountPrice;
 
     private Long code;
 
-    private Long waterPrice;
+    private BigDecimal waterPrice;
 
     private String waterName;
 
@@ -29,10 +29,10 @@ public class ItemModel {
     private Date date;
 
     public Long getPriceInRub() {
-        return price/100;
+        return price.longValue();
     }
 
     public Long getDiscountPriceInRub() {
-        return discountPrice/100;
+        return discountPrice.longValue();
     }
 }
