@@ -29,10 +29,18 @@ public class ItemModel {
     private Date date;
 
     public Long getPriceInRub() {
-        return price.longValue();
+        try {
+            return price.longValue();
+        } catch (NullPointerException npe) {
+            return 0L;
+        }
     }
 
     public Long getDiscountPriceInRub() {
-        return discountPrice.longValue();
+        try {
+            return discountPrice.longValue();
+        } catch (NullPointerException npe) {
+            return 0L;
+        }
     }
 }
