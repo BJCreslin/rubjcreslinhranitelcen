@@ -64,15 +64,17 @@ public class XLSFileController {
 
 
             ItemModel itemModel = new ItemModel();
-            int iCell=0;
-            for (BiConsumer<ItemModel,HSSFCell> columnFunction:biConsumerList){
-                try{
-                columnFunction.accept(itemModel,row.getCell(iCell++));}
-                catch (NullPointerException npe){
+            int iCell = 0;
+            for (BiConsumer<ItemModel, HSSFCell> columnFunction : biConsumerList) {
+                try {
+                    columnFunction.accept(itemModel, row.getCell(iCell++));
+                } catch (NullPointerException npe) {
+                    if (iCell == 1) {
+                        break;
+                    }
                     //NOP
                 }
             }
-
 
 
 //            try {

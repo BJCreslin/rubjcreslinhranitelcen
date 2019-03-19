@@ -2,6 +2,7 @@ package ru.bjcreslin.controller.xls;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import ru.bjcreslin.model.Exceptions.NoNameInXLSFileEXception;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -32,12 +33,12 @@ public class XLSSellController {
         }
     }
 
-    public static String getStringFromCell(HSSFCell hssfCell) {
+    public static String getStringFromCell(HSSFCell hssfCell) throws NoNameInXLSFileEXception {
         DataFormatter fmtCode = new DataFormatter();
         try {
             return fmtCode.formatCellValue(hssfCell);
         } catch (Exception ex) {
-            return "";
+            throw new NoNameInXLSFileEXception();
         }
     }
 }

@@ -33,6 +33,7 @@ public class ColumnsNameDispatcherForXLSFileParsing {
     }
 
     void addNameStroypark(ItemModel itemModel, HSSFCell cell) {
+
         itemModel.setName(getStringFromCell(cell));
     }
 
